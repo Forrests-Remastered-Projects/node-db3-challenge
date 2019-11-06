@@ -16,3 +16,25 @@ function findSteps(id) {
     )
     .where({ id });
 }
+function add(scheme) {
+  return db("schemes")
+    .insert(scheme, "id")
+    .then(([id]) => {
+      return findById(id);
+    });
+}
+function update(changes, id) {
+  return db("schemes")
+    .update(changes)
+    .where({ id })
+    .then(updated => {
+      console.log(id);
+      updated ? findById(id) : null;
+    });
+}
+
+function remove(id) {
+  return db("schemes")
+    .where({ id })
+    .del();
+}
